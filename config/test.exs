@@ -14,5 +14,5 @@ config :tasks1, Tasks1.Repo,
   username: "tasks1",
   password: "base12ball",
   database: "tasks1_test",
-  hostname: "localhost"
+  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -15,3 +15,7 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+import jQuery from 'jquery';
+window.jQuery = window.$ = jQuery; // Bootstrap requires a global "$" object.
+import "bootstrap";
