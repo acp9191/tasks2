@@ -22,11 +22,11 @@
       <td><%= task.is_completed %></td>
 
       <td>
-        <%= link "Show", to: Routes.product_path(@conn, :show, product),
+        <%= link "Show", to: Routes.task_path(@conn, :show, task),
             class: "btn btn-secondary" %>
-        <%= link "Edit", to: Routes.product_path(@conn, :edit, product),
+        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),
             class: "btn btn-info" %>
-        <%= link "Delete", to: Routes.product_path(@conn, :delete, product),
+        <%= link "Delete", to: Routes.task_path(@conn, :delete, task),
             method: :delete, data: [confirm: "Are you sure?"],
             class: "btn btn-danger" %>
       </td>
