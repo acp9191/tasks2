@@ -13,25 +13,25 @@
     </tr>
   </thead>
   <tbody>
-<%= for task <- @tasks do %>
-    <tr>
-      <td><%= task.title %></td>
-      <td><%= task.description %></td>
-      <td><%= task.assigned_to %></td>
-      <td><%= task.length %></td>
-      <td><%= task.is_completed %></td>
+    <%= for task <- @tasks do %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+          <td><%= task.user_id %></td>
+          <td><%= task.length %></td>
+          <td><%= task.is_completed %></td>
 
-      <td>
-        <%= link "Show", to: Routes.task_path(@conn, :show, task),
-            class: "btn btn-secondary" %>
-        <%= link "Edit", to: Routes.task_path(@conn, :edit, task),
-            class: "btn btn-info" %>
-        <%= link "Delete", to: Routes.task_path(@conn, :delete, task),
-            method: :delete, data: [confirm: "Are you sure?"],
-            class: "btn btn-danger" %>
-      </td>
-    </tr>
-<% end %>
+          <td>
+            <%= link "Show", to: Routes.task_path(@conn, :show, task),
+                class: "btn btn-secondary" %>
+            <%= link "Edit", to: Routes.task_path(@conn, :edit, task),
+                class: "btn btn-info" %>
+            <%= link "Delete", to: Routes.task_path(@conn, :delete, task),
+                method: :delete, data: [confirm: "Are you sure?"],
+                class: "btn btn-danger" %>
+          </td>
+        </tr>
+    <% end %>
   </tbody>
 </table>
 

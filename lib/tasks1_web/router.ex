@@ -7,11 +7,11 @@ defmodule Tasks1Web.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Tasks1Web.Plugs.FetchSession
   end
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Tasks1Web.Plugs.FetchSession
   end
 
   scope "/", Tasks1Web do

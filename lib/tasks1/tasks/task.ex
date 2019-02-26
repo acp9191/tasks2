@@ -4,11 +4,11 @@ defmodule Tasks1.Tasks.Task do
 
 
   schema "tasks" do
-    belongs_to :user, HuskyShop.Users.User
     field :description, :string
     field :is_completed, :boolean, default: false
     field :length, :integer
     field :title, :string
+    belongs_to :user, Tasks1.Users.User
 
     timestamps()
   end
@@ -16,7 +16,7 @@ defmodule Tasks1.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :description, :assigned_to, :length, :is_completed])
-    |> validate_required([:title, :description, :assigned_to, :length, :is_completed])
+    |> cast(attrs, [:title, :description, :length, :is_completed, :user_id])
+    |> validate_required([:title, :description, :length, :is_completed, :user_id])
   end
 end
