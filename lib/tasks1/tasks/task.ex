@@ -4,7 +4,7 @@ defmodule Tasks1.Tasks.Task do
 
 
   schema "tasks" do
-    field :assigned_to, :string
+    belongs_to :user, HuskyShop.Users.User
     field :description, :string
     field :is_completed, :boolean, default: false
     field :length, :integer

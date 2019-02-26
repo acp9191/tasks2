@@ -11,6 +11,7 @@ defmodule Tasks1Web.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Tasks1Web.Plugs.FetchSession
   end
 
   scope "/", Tasks1Web do
@@ -19,6 +20,8 @@ defmodule Tasks1Web.Router do
     get "/", PageController, :index
 
     resources "/tasks", TaskController
+    resources "/users", UserController
+    resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 
   # Other scopes may use custom stacks.

@@ -35,4 +35,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Task", to: Routes.product_path(@conn, :new), class: 'btn btn-primary' %></span>
+<span><%= link "New Task", to: Routes.task_path(@conn, :new), class: 'btn btn-primary' %></span>

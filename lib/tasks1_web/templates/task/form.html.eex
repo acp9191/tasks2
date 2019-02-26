@@ -6,35 +6,35 @@
   <% end %>
   <div class="form-group">
     <%= label f, :title %>
-    <%= text_input f, :title %>
+    <%= text_input f, :title, class: "form-control" %>
     <%= error_tag f, :title %>
   </div>
 
   <div class="form-group">
     <%= label f, :description %>
-    <%= text_input f, :description %>
+    <%= text_input f, :description, class: "form-control" %>
     <%= error_tag f, :description %>
   </div>
 
   <div class="form-group">
     <%= label f, :assigned_to %>
-    <%= text_input f, :assigned_to %>
+    <%= text_input f, :assigned_to, class: "form-control" %>
     <%= error_tag f, :assigned_to %>
   </div>
 
   <div class="form-group">
     <%= label f, :length %>
-    <%= number_input f, :length %>
+    <%= number_input f, :length, class: "form-control" %>
     <%= error_tag f, :length %>
   </div>
 
   <div class="form-group">
     <%= label f, :is_completed %>
-    <%= checkbox f, :is_completed %>
+    <%= checkbox f, :is_completed, class: "form-control" %>
     <%= error_tag f, :is_completed %>
   </div>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
