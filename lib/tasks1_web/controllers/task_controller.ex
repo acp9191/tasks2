@@ -3,6 +3,8 @@ defmodule Tasks1Web.TaskController do
 
   alias Tasks1.Tasks
   alias Tasks1.Tasks.Task
+  alias Tasks1.Users
+  # alias Tasks1.Users.User
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -15,6 +17,12 @@ defmodule Tasks1Web.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+
+    # IO.inspect(task_params)
+    user = Users.get_user_by_email(task_params["user_id"])
+    task_params = Map.put(task_params, "user_id", user.id)
+    # task_params = Map.delete(task_params, "username")
+
     case Tasks.create_task(task_params) do
       {:ok, task} ->
         conn

@@ -11,7 +11,7 @@
     <div class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-white">
         <div class="col-4">
-          <a class="navbar-brand" href="#">Task Tracker</a>
+          <a class="navbar-brand" href="/">Task Tracker</a>
         </div>
         <div class="col-4">
           <ul class="navbar-nav mr-auto">
@@ -20,6 +20,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/tasks">Tasks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">Users</a>
             </li>
           </ul>
         </div>
