@@ -6,7 +6,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Assigned to</th>
-      <th>Length</th>
+      <th>Length (min)</th>
       <th>Is completed</th>
 
       <th></th>
