@@ -28,18 +28,18 @@ config :tasks1, Tasks1Web.Endpoint,
   version: Application.spec(:phoenix_distillery, :vsn),
   http: [:inet6, port: {:system, "PORT"}],
   url: [host: "tasks1.ultravioletmasterpiece.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: get_secret.("key_base")
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-config :tasks1, Tasks1Web.Endpoint,
-  secret_key_base: get_secret.("key_base");
+  
 
 # Configure your database
 config :tasks1, Tasks1.Repo,
   username: "tasks1",
-  password: get_secret.("db_pass"),
+  password: "base12ball",
+  database: "tasks1_dev",
   database: "tasks1",
   pool_size: 15
 
