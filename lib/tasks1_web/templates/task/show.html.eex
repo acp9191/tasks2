@@ -20,6 +20,7 @@
   <li>
     <strong>Length:</strong>
     <%= @task.length %>
+    <span> minutes</span>
   </li>
 
   <li>
