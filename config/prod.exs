@@ -28,15 +28,16 @@ config :tasks1, Tasks1Web.Endpoint,
   version: Application.spec(:phoenix_distillery, :vsn),
   http: [:inet6, port: {:system, "PORT"}],
   url: [host: "tasks1.ultravioletmasterpiece.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: get_secret.("key_base"),
-  password: get_secret.("tasks1") # Manually make file match password
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :tasks1, Tasks1Web.Endpoint,
+  secret_key_base: get_secret.("key_base");
+
 # Configure your database
-config :husky_shop, Tasks1.Repo,
+config :tasks1, Tasks1.Repo,
   username: "tasks1",
   password: get_secret.("db_pass"),
   database: "tasks1",
