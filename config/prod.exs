@@ -35,10 +35,11 @@ config :tasks1, Tasks1Web.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :tasks1, Tasks1.Repo,
+# Configure your database
+config :husky_shop, Tasks1.Repo,
   username: "tasks1",
-  password: "base12ball",
-  database: "tasks1_dev",
+  password: get_secret.("db_pass"),
+  database: "tasks1",
   pool_size: 15
 
 # ## SSL Support
@@ -92,4 +93,4 @@ config :tasks1, Tasks1.Repo,
 
 # Finally import the config/prod.secret.exs which should be versioned
 # separately.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
