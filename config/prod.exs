@@ -35,6 +35,12 @@ config :tasks1, Tasks1Web.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :tasks1, Tasks1.Repo,
+  username: "tasks1",
+  password: "base12ball",
+  database: "tasks1_dev",
+  pool_size: 15
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

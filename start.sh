@@ -9,9 +9,6 @@ _build/prod/rel/tasks1/bin/tasks1 stop || true
 
 echo "Starting app..."
 
-# Start to run in background from shell.
-#_build/prod/rel/memory/bin/memory start
-
 # Foreground for testing and for systemd
 _build/prod/rel/tasks1/bin/tasks1 foreground
 
