@@ -1,12 +1,12 @@
-defmodule Tasks1Web do
+defmodule Tasks2Web do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use Tasks1Web, :controller
-      use Tasks1Web, :view
+      use Tasks2Web, :controller
+      use Tasks2Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule Tasks1Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Tasks1Web
+      use Phoenix.Controller, namespace: Tasks2Web
 
       import Plug.Conn
-      import Tasks1Web.Gettext
-      alias Tasks1Web.Router.Helpers, as: Routes
+      import Tasks2Web.Gettext
+      alias Tasks2Web.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/tasks1_web/templates",
-        namespace: Tasks1Web
+        root: "lib/tasks2_web/templates",
+        namespace: Tasks2Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -39,9 +39,9 @@ defmodule Tasks1Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Tasks1Web.ErrorHelpers
-      import Tasks1Web.Gettext
-      alias Tasks1Web.Router.Helpers, as: Routes
+      import Tasks2Web.ErrorHelpers
+      import Tasks2Web.Gettext
+      alias Tasks2Web.Router.Helpers, as: Routes
     end
   end
 
@@ -56,7 +56,7 @@ defmodule Tasks1Web do
   def channel do
     quote do
       use Phoenix.Channel
-      import Tasks1Web.Gettext
+      import Tasks2Web.Gettext
     end
   end
 

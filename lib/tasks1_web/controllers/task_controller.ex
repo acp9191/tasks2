@@ -1,9 +1,9 @@
-defmodule Tasks1Web.TaskController do
-  use Tasks1Web, :controller
+defmodule Tasks2Web.TaskController do
+  use Tasks2Web, :controller
 
-  alias Tasks1.Tasks
-  alias Tasks1.Tasks.Task
-  alias Tasks1.Users
+  alias Tasks2.Tasks
+  alias Tasks2.Tasks.Task
+  alias Tasks2.Users
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()

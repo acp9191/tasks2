@@ -1,3 +1,3 @@
-defmodule Tasks1Web.LayoutView do
-  use Tasks1Web, :view
+defmodule Tasks2Web.LayoutView do
+  use Tasks2Web, :view
 end

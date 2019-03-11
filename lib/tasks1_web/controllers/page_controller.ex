@@ -1,5 +1,5 @@
-defmodule Tasks1Web.PageController do
-  use Tasks1Web, :controller
+defmodule Tasks2Web.PageController do
+  use Tasks2Web, :controller
 
   def index(conn, _params) do
     render(conn, "index.html")

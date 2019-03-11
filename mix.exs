@@ -1,9 +1,9 @@
-defmodule Tasks1.MixProject do
+defmodule Tasks2.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :tasks1,
+      app: :tasks2,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule Tasks1.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Tasks1.Application, []},
+      mod: {Tasks2.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

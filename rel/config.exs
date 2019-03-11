@@ -51,7 +51,7 @@ end
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: String.to_atom(get_secret.("tasks1_cookie"))
+  set cookie: String.to_atom(get_secret.("tasks2_cookie"))
   set vm_args: "rel/vm.args"
 end
 
@@ -60,8 +60,8 @@ end
 # when running `mix release`, the first release in the file
 # will be used by default
 
-release :tasks1 do
-  set version: current_version(:tasks1)
+release :tasks2 do
+  set version: current_version(:tasks2)
   set applications: [
     :runtime_tools
   ]

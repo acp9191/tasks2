@@ -1,7 +1,7 @@
-defmodule Tasks1Web.UserControllerTest do
-  use Tasks1Web.ConnCase
+defmodule Tasks2Web.UserControllerTest do
+  use Tasks2Web.ConnCase
 
-  alias Tasks1.Users
+  alias Tasks2.Users
 
   @create_attrs %{admin: true, email: "some email"}
   @update_attrs %{admin: false, email: "some updated email"}

@@ -1,4 +1,4 @@
-defmodule Tasks1Web.ChannelCase do
+defmodule Tasks2Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule Tasks1Web.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint Tasks1Web.Endpoint
+      @endpoint Tasks2Web.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tasks1.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tasks2.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Tasks1.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Tasks2.Repo, {:shared, self()})
     end
 
     :ok

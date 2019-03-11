@@ -1,10 +1,10 @@
-defmodule Tasks1.TasksTest do
-  use Tasks1.DataCase
+defmodule Tasks2.TasksTest do
+  use Tasks2.DataCase
 
-  alias Tasks1.Tasks
+  alias Tasks2.Tasks
 
   describe "tasks" do
-    alias Tasks1.Tasks.Task
+    alias Tasks2.Tasks.Task
 
     @valid_attrs %{assigned_to: "some assigned_to", description: "some description", is_completed: true, length: 42, title: "some title"}
     @update_attrs %{assigned_to: "some updated assigned_to", description: "some updated description", is_completed: false, length: 43, title: "some updated title"}

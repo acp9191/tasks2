@@ -1,12 +1,12 @@
-defmodule Tasks1.Users do
+defmodule Tasks2.Users do
   @moduledoc """
   The Users context.
   """
 
   import Ecto.Query, warn: false
-  alias Tasks1.Repo
+  alias Tasks2.Repo
 
-  alias Tasks1.Users.User
+  alias Tasks2.Users.User
 
   @doc """
   Returns the list of users.

@@ -1,5 +1,5 @@
-defmodule Tasks1Web.ErrorView do
-  use Tasks1Web, :view
+defmodule Tasks2Web.ErrorView do
+  use Tasks2Web, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

@@ -1,4 +1,4 @@
-defmodule Tasks1.Tasks.Task do
+defmodule Tasks2.Tasks.Task do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -8,7 +8,7 @@ defmodule Tasks1.Tasks.Task do
     field :is_completed, :boolean, default: false
     field :length, :integer
     field :title, :string
-    belongs_to :user, Tasks1.Users.User
+    belongs_to :user, Tasks2.Users.User
 
     timestamps()
   end

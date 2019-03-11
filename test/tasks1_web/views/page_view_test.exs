@@ -1,3 +1,3 @@
-defmodule Tasks1Web.PageViewTest do
-  use Tasks1Web.ConnCase, async: true
+defmodule Tasks2Web.PageViewTest do
+  use Tasks2Web.ConnCase, async: true
 end

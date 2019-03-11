@@ -1,7 +1,7 @@
-defmodule Tasks1Web.TaskControllerTest do
-  use Tasks1Web.ConnCase
+defmodule Tasks2Web.TaskControllerTest do
+  use Tasks2Web.ConnCase
 
-  alias Tasks1.Tasks
+  alias Tasks2.Tasks
 
   @create_attrs %{assigned_to: "some assigned_to", description: "some description", is_completed: true, length: 42, title: "some title"}
   @update_attrs %{assigned_to: "some updated assigned_to", description: "some updated description", is_completed: false, length: 43, title: "some updated title"}

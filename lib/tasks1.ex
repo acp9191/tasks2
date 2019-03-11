@@ -1,6 +1,6 @@
-defmodule Tasks1 do
+defmodule Tasks2 do
   @moduledoc """
-  Tasks1 keeps the contexts that define your domain
+  Tasks2 keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

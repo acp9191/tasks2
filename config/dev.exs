@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :tasks1, Tasks1Web.Endpoint,
+config :tasks2, Tasks2Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -46,13 +46,13 @@ config :tasks1, Tasks1Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :tasks1, Tasks1Web.Endpoint,
+config :tasks2, Tasks2Web.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/tasks1_web/views/.*(ex)$},
-      ~r{lib/tasks1_web/templates/.*(eex)$}
+      ~r{lib/tasks2_web/views/.*(ex)$},
+      ~r{lib/tasks2_web/templates/.*(eex)$}
     ]
   ]
 
@@ -67,9 +67,9 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
-config :tasks1, Tasks1.Repo,
-  username: "tasks1",
+config :tasks2, Tasks2.Repo,
+  username: "tasks2",
   password: "base12ball",
-  database: "tasks1_dev",
+  database: "tasks2_dev",
   hostname: "localhost",
   pool_size: 10

@@ -1,8 +1,8 @@
-defmodule Tasks1Web.SessionController do
-  use Tasks1Web, :controller
+defmodule Tasks2Web.SessionController do
+  use Tasks2Web, :controller
 
   def create(conn, %{"email" => email}) do
-    user = Tasks1.Users.get_user_by_email(email)
+    user = Tasks2.Users.get_user_by_email(email)
     if user do
       conn
       |> put_session(:user_id, user.id)
