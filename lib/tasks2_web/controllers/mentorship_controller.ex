@@ -4,8 +4,23 @@ defmodule Tasks2Web.MentorshipController do
   alias Tasks2.Mentorships
   alias Tasks2.Mentorships.Mentorship
 
+  alias Tasks2.Users
+
   def index(conn, _params) do
     mentorships = Mentorships.list_mentorships()
+
+    mentorships = Enum.map(mentorships, fn mentorship -> 
+      %Mentorship{mentorship | underling: Users.get_user!(mentorship.underling_id).email}
+    end)
+
+    mentorships = Enum.map(mentorships, fn mentorship -> 
+      %Mentorship{mentorship | manager: Users.get_user!(mentorship.manager_id).email}
+    end)
+
+    
+
+    IO.inspect(mentorships)
+
     render(conn, "index.html", mentorships: mentorships)
   end
 
