@@ -6,9 +6,9 @@ defmodule Tasks2.UsersTest do
   describe "users" do
     alias Tasks2.Users.User
 
-    @valid_attrs %{admin: true, email: "some email"}
-    @update_attrs %{admin: false, email: "some updated email"}
-    @invalid_attrs %{admin: nil, email: nil}
+    @valid_attrs %{is_manager: true, email: "some email"}
+    @update_attrs %{is_manager: false, email: "some updated email"}
+    @invalid_attrs %{is_manager: nil, email: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -31,7 +31,7 @@ defmodule Tasks2.UsersTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
-      assert user.admin == true
+      assert user.is_manager == true
       assert user.email == "some email"
     end
 
@@ -42,7 +42,7 @@ defmodule Tasks2.UsersTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
-      assert user.admin == false
+      assert user.is_manager == false
       assert user.email == "some updated email"
     end
 

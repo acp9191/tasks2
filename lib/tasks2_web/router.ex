@@ -22,6 +22,7 @@ defmodule Tasks2Web.Router do
     resources "/tasks", TaskController
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
+    resources "/mentorships", MentorshipController
   end
 
   # Other scopes may use custom stacks.

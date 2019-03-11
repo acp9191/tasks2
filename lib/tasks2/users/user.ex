@@ -4,9 +4,10 @@ defmodule Tasks2.Users.User do
 
 
   schema "users" do
-    field :admin, :boolean, default: false
+    field :is_manager, :boolean, default: false
     field :email, :string
     has_many :tasks, Tasks2.Tasks.Task
+    has_many :mentorships, Tasks2.Mentorships.Mentorship
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Tasks2.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :admin])
-    |> validate_required([:email, :admin])
+    |> cast(attrs, [:email, :is_manager])
+    |> validate_required([:email, :is_manager])
   end
 end

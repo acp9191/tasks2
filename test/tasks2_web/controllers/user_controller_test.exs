@@ -3,9 +3,9 @@ defmodule Tasks2Web.UserControllerTest do
 
   alias Tasks2.Users
 
-  @create_attrs %{admin: true, email: "some email"}
-  @update_attrs %{admin: false, email: "some updated email"}
-  @invalid_attrs %{admin: nil, email: nil}
+  @create_attrs %{is_manager: true, email: "some email"}
+  @update_attrs %{is_manager: false, email: "some updated email"}
+  @invalid_attrs %{is_manager: nil, email: nil}
 
   def fixture(:user) do
     {:ok, user} = Users.create_user(@create_attrs)

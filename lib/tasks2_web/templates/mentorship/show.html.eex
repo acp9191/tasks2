@@ -1,0 +1,8 @@
+<h1>Show Mentorship</h1>
+
+<ul>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.mentorship_path(@conn, :edit, @mentorship) %></span>
+<span><%= link "Back", to: Routes.mentorship_path(@conn, :index) %></span>

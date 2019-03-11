@@ -1,0 +1,24 @@
+<h1>Listing Mentorships</h1>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for mentorship <- @mentorships do %>
+    <tr>
+
+      <td>
+        <%= link "Show", to: Routes.mentorship_path(@conn, :show, mentorship) %>
+        <%= link "Edit", to: Routes.mentorship_path(@conn, :edit, mentorship) %>
+        <%= link "Delete", to: Routes.mentorship_path(@conn, :delete, mentorship), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Mentorship", to: Routes.mentorship_path(@conn, :new) %></span>
