@@ -4,8 +4,8 @@ defmodule Tasks2.Mentorships.Mentorship do
 
 
   schema "mentorships" do
-    field :manager_id, :id
-    field :underling_id, :id
+    belongs_to :manager, Tasks2.Users.User 
+    belongs_to :underling, Tasks2.Users.User
 
     timestamps()
   end

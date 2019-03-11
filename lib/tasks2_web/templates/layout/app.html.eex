@@ -24,6 +24,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/users">Users</a>
             </li>
+            <%= if @current_user && @current_user.is_manager do %>
+              <li class="nav-item">
+                <a class="nav-link" href="/mentorships">Mentorships</a>
+              </li>
+            <% end %>
           </ul>
         </div>
         <div class="col-4">
