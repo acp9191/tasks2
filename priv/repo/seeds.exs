@@ -11,7 +11,18 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Tasks2.Repo
+
 alias Tasks2.Users.User
 
 Repo.insert!(%User{email: "alice@example.com", is_manager: true})
 Repo.insert!(%User{email: "bob@example.com", is_manager: false})
+Repo.insert!(%User{email: "charlie@example.com", is_manager: false})
+
+alias Tasks2.Tasks.Task
+
+Repo.insert(%Task{description: "Foobar", is_completed: false, length: 30, title: "Foobar", user: "bob@example.com"})
+
+alias Tasks2.Mentorships.Mentorship
+
+Repo.insert!(%Mentorship{manager_id: 1, underling_id: 2})
+Repo.insert!(%Mentorship{manager_id: 1, underling_id: 3})

@@ -37,6 +37,18 @@ defmodule Tasks2.Mentorships do
   """
   def get_mentorship!(id), do: Repo.get!(Mentorship, id)
 
+  def get_mentorships(id) do 
+    query = from m in Mentorship,
+            where: m.manager_id == ^id
+    Repo.all(query)
+  end
+
+  def get_manager(id) do
+    query = from m in Mentorship, 
+            where: m.underling_id == ^id
+    Repo.one(query)
+  end
+
   @doc """
   Creates a mentorship.
 
