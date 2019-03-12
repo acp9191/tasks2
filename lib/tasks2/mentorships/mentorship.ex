@@ -13,7 +13,7 @@ defmodule Tasks2.Mentorships.Mentorship do
   @doc false
   def changeset(mentorship, attrs) do
     mentorship
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:manager_id, :underling_id])
+    |> validate_required([:manager_id, :underling_id])
   end
 end

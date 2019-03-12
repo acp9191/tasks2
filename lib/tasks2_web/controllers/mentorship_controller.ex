@@ -26,6 +26,7 @@ defmodule Tasks2Web.MentorshipController do
 
   def new(conn, _params) do
     changeset = Mentorships.change_mentorship(%Mentorship{})
+    IO.inspect(changeset)
     render(conn, "new.html", changeset: changeset)
   end
 
