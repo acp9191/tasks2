@@ -14,7 +14,7 @@ defmodule Tasks2.TimeBlocks.TimeBlock do
   @doc false
   def changeset(time_block, attrs) do
     time_block
-    |> cast(attrs, [:start, :end])
-    |> validate_required([:start, :end])
+    |> cast(attrs, [:start, :end, :task_id])
+    |> validate_required([:start, :end, :task_id])
   end
 end

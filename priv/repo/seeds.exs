@@ -31,7 +31,40 @@ Repo.insert!(
 
 alias Tasks2.TimeBlocks.TimeBlock
 
-Repo.insert!(%TimeBlock{start: DateTime.truncate(DateTime.utc_now(), :second), end: DateTime.add(DateTime.truncate(DateTime.utc_now, :second), 3600, :hour), task_id: 1})
+Repo.insert!(
+  %TimeBlock{
+    start: DateTime.truncate(DateTime.utc_now(), :second), 
+    end: DateTime.add(DateTime.truncate(DateTime.utc_now, :second), 3600, :second), 
+    task_id: 1
+  }
+)
+
+Repo.insert!(
+  %TimeBlock{
+    start: DateTime.truncate(DateTime.utc_now(), :second), 
+    end: DateTime.add(DateTime.truncate(DateTime.utc_now, :second), 36, :second), 
+    task_id: 1
+  }
+)
+
+Repo.insert!(
+  %TimeBlock{
+    start: DateTime.truncate(DateTime.utc_now(), :second), 
+    end: %DateTime{
+      year: 2019,
+      month: 10,
+      day: 10,
+      hour: 10,
+      minute: 10,
+      second: 10,
+      time_zone: "Etc/UTC",
+      zone_abbr: "EST",
+      utc_offset: 0,
+      std_offset: 0
+    },
+    task_id: 1
+  }
+)
 
 alias Tasks2.Mentorships.Mentorship
 

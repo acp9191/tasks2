@@ -34,20 +34,41 @@
     <%= display_blocks(@task) %>
     <%= if (@current_user.email == @task.user_id) do %>
       <div id="add-time-form">
-          Start: <input placeholder="YYYY-MM-DD">
-          End: <input>
+          <div>
+            Start: 
+            <div>Year:   <input id="start-year"   placeholder="YYYY"></div>
+            <div>Month:  <input id="start-month"  placeholder="MM"></div>
+            <div>Day:    <input id="start-day"    placeholder="DD"></div>
+            <div>Hour:   <input id="start-hour"   placeholder="HH"></div>
+            <div>Minute: <input id="start-minute" placeholder="MM"></div>
+            <div>Second: <input id="start-second" placeholder="SS"><div>
+          </div>
+          <div>
+            End: 
+            <div>Year:   <input id="end-year"   placeholder="YYYY"></div>
+            <div>Month:  <input id="end-month"  placeholder="MM"></div>
+            <div>Day:    <input id="end-day"    placeholder="DD"></div>
+            <div>Hour:   <input id="end-hour"   placeholder="HH"></div>
+            <div>Minute: <input id="end-minute" placeholder="MM"></div>
+            <div>Second: <input id="end-second" placeholder="SS"><div>
+          </div>
           
+
 
           <button id="time-button"
                   data-user-id="<%= @current_user.id %>"
                   data-task-id="<%= @task.id %>"
-                  class="btn btn-secondary">Add time</button>
+                  class="btn btn-secondary">Add Time Block</button>
       </div>
     <% end %>
   </li>
   
 
 </ul>
+
+<script>
+ window.time_block_path = "<%= Routes.time_block_path(@conn, :create) %>";
+</script>
 
 <span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>
 <span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>
