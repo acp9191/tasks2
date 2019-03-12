@@ -31,6 +31,24 @@ defmodule Tasks2Web.MentorshipController do
   end
 
   def create(conn, %{"mentorship" => mentorship_params}) do
+    manager_email = mentorship_params["manager_id"]
+    manager_user = Users.get_user_by_email(manager_email)
+
+    underling_email = mentorship_params["underling_id"]
+    underling_user = Users.get_user_by_email(underling_email)
+
+    mentorship_params = if (manager_user != nil) do
+      Map.put(mentorship_params, "manager_id", manager_user.id)
+    else
+      mentorship_params
+    end
+
+    mentorship_params = if (underling_user != nil) do
+      Map.put(mentorship_params, "underling_id", underling_user.id)
+    else
+      mentorship_params
+    end
+
     case Mentorships.create_mentorship(mentorship_params) do
       {:ok, mentorship} ->
         conn
@@ -38,6 +56,29 @@ defmodule Tasks2Web.MentorshipController do
         |> redirect(to: Routes.mentorship_path(conn, :show, mentorship))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+
+        changeset = if Map.has_key?(changeset.changes, :manager_id) do
+          manager_user = Users.get_user(changeset.changes.manager_id)
+          changes = changeset.changes
+          changes = %{changes | manager_id: manager_user.email}
+          changeset = %{changeset | changes: changes}
+        else
+          changes = changeset.changes
+          changes = Map.put(changes, :manager_id, manager_email)
+          changeset = %{changeset | changes: changes}
+        end
+
+        changeset = if Map.has_key?(changeset.changes, :underling_id) do
+          manager_user = Users.get_user(changeset.changes.underling_id)
+          changes = changeset.changes
+          changes = %{changes | underling_id: underling_user.email}
+          changeset = %{changeset | changes: changes}
+        else
+          changes = changeset.changes
+          changes = Map.put(changes, :underling_id, underling_email)
+          changeset = %{changeset | changes: changes}
+        end
+
         render(conn, "new.html", changeset: changeset)
     end
   end
