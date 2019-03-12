@@ -14,6 +14,13 @@ defmodule Tasks2Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :ajax do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug HuskyShopWeb.Plugs.FetchSession
+  end
+
   scope "/", Tasks2Web do
     pipe_through :browser
 
@@ -24,6 +31,11 @@ defmodule Tasks2Web.Router do
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
     resources "/mentorships", MentorshipController
+  end
+
+  scope "/ajax", Tasks2Web do
+    pipe_through :ajax
+    resources "/time_block", TimeBlockController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

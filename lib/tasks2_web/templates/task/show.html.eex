@@ -18,15 +18,26 @@
   </li>
 
   <li>
-    <strong>Length:</strong>
-    <%= @task.length %>
-    <span> minutes</span>
-  </li>
-
-  <li>
     <strong>Is completed:</strong>
     <%= @task.is_completed %>
   </li>
+
+  <%= if (@current_user.email == @task.user_id) do %>
+    <li>
+      <strong>Time Blocks:</strong>
+
+      <div id="add-time-form">
+          Start: <input>
+          End: <input>
+          
+
+          <button id="time-button"
+                  data-user-id="<%= @current_user.id %>"
+                  data-task-id="<%= @task.id %>"
+                  class="btn btn-secondary">Add time</button>
+        </div>
+    </li>
+  <% end %>
 
 </ul>
 

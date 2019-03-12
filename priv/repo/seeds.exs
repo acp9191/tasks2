@@ -20,7 +20,18 @@ Repo.insert!(%User{email: "charlie@example.com", is_manager: false})
 
 alias Tasks2.Tasks.Task
 
-Repo.insert(%Task{description: "Foobar", is_completed: false, length: 30, title: "Foobar", user: "bob@example.com"})
+Repo.insert!(
+  %Task{
+    description: "Foobar", 
+    is_completed: false,
+    title: "Foobar", 
+    user_id: 2
+  }
+)
+
+alias Tasks2.TimeBlocks.TimeBlock
+
+Repo.insert!(%TimeBlock{start: ~D[2019-01-01], end: ~D[2019-01-02], task_id: 1})
 
 alias Tasks2.Mentorships.Mentorship
 
