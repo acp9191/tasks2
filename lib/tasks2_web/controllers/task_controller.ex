@@ -5,6 +5,7 @@ defmodule Tasks2Web.TaskController do
   alias Tasks2.Tasks.Task
   alias Tasks2.Users
   alias Tasks2.Mentorships
+  alias Tasks2.TimeBlocks
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -78,6 +79,13 @@ defmodule Tasks2Web.TaskController do
     task = Tasks.get_task!(id)
     user = Users.get_user(task.user_id)
     task = %{task | user_id: user.email}
+
+    time_blocks = TimeBlocks.get_blocks_by_task_id(id)
+
+    task = Map.put(task, :time_blocks, time_blocks)
+
+    IO.inspect(task)
+
     render(conn, "show.html", task: task)
   end
 

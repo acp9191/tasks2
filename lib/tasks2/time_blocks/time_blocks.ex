@@ -37,6 +37,12 @@ defmodule Tasks2.TimeBlocks do
   """
   def get_time_block!(id), do: Repo.get!(TimeBlock, id)
 
+  def get_blocks_by_task_id(id) do
+    query = from t in TimeBlock, 
+            where: t.task_id == ^id
+    Repo.all(query)
+  end
+
   @doc """
   Creates a time_block.
 

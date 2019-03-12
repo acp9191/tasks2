@@ -18,7 +18,7 @@ defmodule Tasks2Web.Router do
     plug :accepts, ["json"]
     plug :fetch_session
     plug :fetch_flash
-    plug HuskyShopWeb.Plugs.FetchSession
+    plug Tasks2Web.Plugs.FetchSession
   end
 
   scope "/", Tasks2Web do

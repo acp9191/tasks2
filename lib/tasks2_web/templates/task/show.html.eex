@@ -22,12 +22,19 @@
     <%= @task.is_completed %>
   </li>
 
-  <%= if (@current_user.email == @task.user_id) do %>
-    <li>
-      <strong>Time Blocks:</strong>
-
+  
+  <li>
+    <strong>Time Blocks:</strong>
+    <%= for time_block <- @task.time_blocks do %>
+      <div>
+        Start: <%= time_block.start %>
+        End: <%= time_block.end %>
+      </div>
+    <% end %>
+    <%= display_blocks(@task) %>
+    <%= if (@current_user.email == @task.user_id) do %>
       <div id="add-time-form">
-          Start: <input>
+          Start: <input placeholder="YYYY-MM-DD">
           End: <input>
           
 
@@ -35,9 +42,10 @@
                   data-user-id="<%= @current_user.id %>"
                   data-task-id="<%= @task.id %>"
                   class="btn btn-secondary">Add time</button>
-        </div>
-    </li>
-  <% end %>
+      </div>
+    <% end %>
+  </li>
+  
 
 </ul>
 
