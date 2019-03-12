@@ -4,6 +4,7 @@ defmodule Tasks2Web.TaskController do
   alias Tasks2.Tasks
   alias Tasks2.Tasks.Task
   alias Tasks2.Users
+  alias Tasks2.Mentorships
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -11,6 +12,33 @@ defmodule Tasks2Web.TaskController do
       user = Users.get_user(task.user_id)
       %{task | user_id: user.email}
     end)
+    render(conn, "index.html", tasks: tasks)
+  end
+
+  def report(conn, %{"id" => id}) do
+
+    mentorships = Mentorships.get_mentorships(id)
+    underlings = Enum.map(mentorships, fn x -> Users.get_user!(x.underling_id).email end)
+
+    IO.inspect(underlings)
+
+    users = Enum.map(underlings, fn underling -> 
+      Users.get_user_by_email(underling)
+    end)
+
+    tasks = []
+
+    tasks = Enum.map(users, fn user -> 
+      Users.get_tasks_by_user_id(user.id)
+    end)
+
+    tasks = List.flatten(tasks)
+
+    tasks = Enum.map(tasks, fn task ->
+      user = Users.get_user(task.user_id)
+      %{task | user_id: user.email}
+    end)
+
     render(conn, "index.html", tasks: tasks)
   end
 

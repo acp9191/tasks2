@@ -1,7 +1,15 @@
 <h1>Show Mentorship</h1>
 
 <ul>
+  <li>
+    <strong>Manager:</strong>
+    <%= @mentorship.manager %>
+  </li>
 
+  <li>
+    <strong>Underling:</strong>
+    <%= @mentorship.underling %>
+  </li>
 </ul>
 
 <span><%= link "Edit", to: Routes.mentorship_path(@conn, :edit, @mentorship) %></span>
