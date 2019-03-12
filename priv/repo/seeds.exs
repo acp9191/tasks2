@@ -31,7 +31,7 @@ Repo.insert!(
 
 alias Tasks2.TimeBlocks.TimeBlock
 
-Repo.insert!(%TimeBlock{start: ~D[2019-01-01], end: ~D[2019-01-02], task_id: 1})
+Repo.insert!(%TimeBlock{start: DateTime.truncate(DateTime.utc_now(), :second), end: DateTime.add(DateTime.truncate(DateTime.utc_now, :second), 3600, :hour), task_id: 1})
 
 alias Tasks2.Mentorships.Mentorship
 

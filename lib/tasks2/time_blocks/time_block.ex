@@ -4,8 +4,8 @@ defmodule Tasks2.TimeBlocks.TimeBlock do
 
 
   schema "time_blocks" do
-    field :end, :date
-    field :start, :date
+    field :end, :utc_datetime
+    field :start, :utc_datetime
     belongs_to :task, Tasks2.Tasks.Task
 
     timestamps()
