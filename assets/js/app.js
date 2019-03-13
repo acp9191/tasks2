@@ -23,6 +23,10 @@ import _ from "lodash";
 
 $(function () {
 
+  let currently_timing = false;
+  let start_date = '';
+  let end_date = '';
+
   function update_blocks(task_id) {
     $.ajax(`${time_block_path}?task_id=${task_id}`, {
       method: "get",
@@ -30,16 +34,51 @@ $(function () {
       contentType: "application/json; charset=UTF-8",
       data: "",
       success: (resp) => {
-        console.log(resp)
-        // let count = resp.data.length;
-        // let sum = _.sum(_.map(resp.data, (rat) => rat.stars));
-        // $('#rating-avg').text(`${sum/count} / 5 (${count} ratings)`);
+        // no op
       },
     });
   }
 
+  $('#direct-time-button').click((ev) => {
+    currently_timing = !currently_timing;
+    if (currently_timing) {
+      ev.target.innerText = "Stop Time Block";
+      ev.target.classList.remove("btn-success")
+      ev.target.classList.add("btn-danger")
+      start_date = new Date().toISOString();
+    } else {
+      ev.target.innerText = "Start Time Block";
+      ev.target.classList.remove("btn-danger")
+      ev.target.classList.add("btn-success")
+      end_date = new Date().toISOString();
+
+      let task_id = $(ev.target).data('task-id');
+
+      let text = JSON.stringify({
+        time_block: {
+          task_id: task_id,
+          is_direct: true,
+
+          start_date: start_date,
+          end_date: end_date
+        },
+      });
+
+      $.ajax(time_block_path, {
+        method: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: text,
+        success: (resp) => {
+          start_date = '';
+          end_date = '';
+          update_blocks(task_id);
+        },
+      });
+    }
+  });
+
   $('#time-button').click((ev) => {
-    console.log("foo")
     let start_year = parseInt($('#start-year').val());
     let start_month = parseInt($('#start-month').val());
     let start_day = parseInt($('#start-day').val());
@@ -59,6 +98,7 @@ $(function () {
     let text = JSON.stringify({
       time_block: {
         task_id: task_id,
+        is_direct: false,
 
         start_year: start_year,
         start_month: start_month,
@@ -82,9 +122,20 @@ $(function () {
       contentType: "application/json; charset=UTF-8",
       data: text,
       success: (resp) => {
+        $('#start-year').val("");
+        $('#start-month').val("");
+        $('#start-day').val("");
+        $('#start-hour').val("");
+        $('#start-minute').val("");
+        $('#start-second').val("");
+
+        $('#end-year').val("");
+        $('#end-month').val("");
+        $('#end-day').val("");
+        $('#end-hour').val("");
+        $('#end-minute').val("");
+        $('#end-second').val("");
         update_blocks(task_id);
-        console.log(resp);
-        // $('#rating-form').text(`(your rating: ${resp.data.stars})`);
       },
     });
   });

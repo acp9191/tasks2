@@ -20,6 +20,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Validated 15 minute increments in task.ex file
   * None of the inputs fields can ever be empty
   * User email must exist in the database in order for a task to be assigned to them
+  * The relationship between a manager and an underling is called a "mentorship"
   * A User can only have one manager
   * A User cannot be their own manager
   * A User must be a manager in order to have underlings

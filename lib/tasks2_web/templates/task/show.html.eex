@@ -83,8 +83,11 @@
 
           <button id="time-button"
                   data-task-id="<%= @task.id %>"
-                  class="btn btn-secondary">Add Time Block</button>
+                  class="btn btn-primary">Add Time Block</button>
       </div>
+      <button id="direct-time-button"
+                  data-task-id="<%= @task.id %>"
+                  class="btn btn-success">Start Time Block</button>
     <% end %>
   </li>
   
