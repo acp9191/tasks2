@@ -41,21 +41,25 @@
             <td><%= time_block.start %></td>
             <td><%= time_block.end %></td>
             <td>
-              <%= link "Delete", to: Routes.time_block_path(@conn, :delete, time_block), 
-              method: :delete, 
-              data: [confirm: "Are you sure?"],
-              class: "btn btn-danger" %>
+              <%= if (@current_user && @current_user.email == @task.user_id) do %>
+                <%= link "Delete", to: Routes.time_block_path(@conn, :delete, time_block), 
+                    method: :delete, 
+                    data: [confirm: "Are you sure?"],
+                    class: "btn btn-danger" %>
+              <% end %>
             </td>
           </tr>
       <% end %>
         </tbody>
       </table>
+     
     <% else %>
       None
     <% end %>
 
     <%= display_blocks(@task) %>
-    <%= if (@current_user.email == @task.user_id) do %>
+    <%= if (@current_user && @current_user.email == @task.user_id) do %>
+      <div>Refresh to see changes</div>
       <div id="add-time-form">
           <div>
             Start: 
