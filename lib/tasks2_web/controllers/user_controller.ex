@@ -16,7 +16,6 @@ defmodule Tasks2Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    IO.inspect(user_params)
     case Users.create_user(user_params) do
       {:ok, user} ->
         conn

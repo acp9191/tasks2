@@ -25,12 +25,35 @@
   
   <li>
     <strong>Time Blocks:</strong>
-    <%= for time_block <- @task.time_blocks do %>
-      <div>
-        Start: <%= time_block.start %>
-        End: <%= time_block.end %>
-      </div>
+    <%= if (length(@task.time_blocks) > 0) do %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Start</th>
+            <th>End</th>
+
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <%= for time_block <- @task.time_blocks do %>
+        <tr>
+            <td><%= time_block.start %></td>
+            <td><%= time_block.end %></td>
+            <td>
+              <%= link "Delete", to: Routes.time_block_path(@conn, :delete, time_block), 
+              method: :delete, 
+              data: [confirm: "Are you sure?"],
+              class: "btn btn-danger" %>
+            </td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      None
     <% end %>
+
     <%= display_blocks(@task) %>
     <%= if (@current_user.email == @task.user_id) do %>
       <div id="add-time-form">
@@ -54,9 +77,7 @@
           </div>
           
 
-
           <button id="time-button"
-                  data-user-id="<%= @current_user.id %>"
                   data-task-id="<%= @task.id %>"
                   class="btn btn-secondary">Add Time Block</button>
       </div>

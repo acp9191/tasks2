@@ -6,13 +6,13 @@ defmodule Tasks2Web.TimeBlockController do
 
   action_fallback Tasks2Web.FallbackController
 
-  def index(conn, _params) do
-    time_block = TimeBlocks.list_time_block()
+  def index(conn, %{"task_id" => task_id}) do
+    time_block = TimeBlocks.get_blocks_by_task_id(task_id)
+    IO.inspect(time_block)
     render(conn, "index.json", time_block: time_block)
   end
 
   def create(conn, %{"time_block" => time_block_params}) do
-    IO.inspect(time_block_params)
     start_time = %DateTime{
       year:       time_block_params["start_year"] ,
       month:      time_block_params["start_month"] ,
@@ -40,7 +40,6 @@ defmodule Tasks2Web.TimeBlockController do
     }
 
     time_block_params = %{"start" => start_time, "end" => end_time, "task_id" => time_block_params["task_id"]}
-    IO.inspect(time_block_params)
 
     with {:ok, %TimeBlock{} = time_block} <- TimeBlocks.create_time_block(time_block_params) do
       conn

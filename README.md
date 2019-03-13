@@ -20,3 +20,12 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Validated 15 minute increments in task.ex file
   * None of the inputs fields can ever be empty
   * User email must exist in the database in order for a task to be assigned to them
+  * A User can only have one manager
+  * A User cannot be their own manager
+  * A User must be a manager in order to have underlings
+  * A User's underling cannot be his or her manager
+  * Only a manager can see the task-report page
+  * Only the User who is assigned to a task can add or delete time blocks
+  * Time blocks cannot be edited
+  * Time blocks can only be seen on a task's "show" page
+  * The page must be refreshed in order to view additions or deletions to the list of time blocks

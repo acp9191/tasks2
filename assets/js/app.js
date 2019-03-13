@@ -22,6 +22,22 @@ import "bootstrap";
 import _ from "lodash";
 
 $(function () {
+
+  function update_blocks(task_id) {
+    $.ajax(`${time_block_path}?task_id=${task_id}`, {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: (resp) => {
+        console.log(resp)
+        // let count = resp.data.length;
+        // let sum = _.sum(_.map(resp.data, (rat) => rat.stars));
+        // $('#rating-avg').text(`${sum/count} / 5 (${count} ratings)`);
+      },
+    });
+  }
+
   $('#time-button').click((ev) => {
     console.log("foo")
     let start_year = parseInt($('#start-year').val());
@@ -38,13 +54,12 @@ $(function () {
     let end_minute = parseInt($('#end-minute').val());
     let end_second = parseInt($('#end-second').val());
 
-    let user_id = $(ev.target).data('user-id');
     let task_id = $(ev.target).data('task-id');
 
     let text = JSON.stringify({
       time_block: {
-        user_id: user_id,
         task_id: task_id,
+
         start_year: start_year,
         start_month: start_month,
         start_day: start_day,
@@ -67,7 +82,8 @@ $(function () {
       contentType: "application/json; charset=UTF-8",
       data: text,
       success: (resp) => {
-        console.log("success!")
+        update_blocks(task_id);
+        console.log(resp);
         // $('#rating-form').text(`(your rating: ${resp.data.stars})`);
       },
     });
