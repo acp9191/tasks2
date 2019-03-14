@@ -33,5 +33,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Only the User who is assigned to a task can add or delete time blocks
   * Time blocks cannot be edited
   * Time blocks can only be seen on a task's "show" page
-  * The page must be refreshed in order to view additions or deletions to the list of time blocks
   * Date times are shown in iso8601 format

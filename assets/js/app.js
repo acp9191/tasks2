@@ -27,18 +27,6 @@ $(function () {
   let start_date = '';
   let end_date = '';
 
-  function update_blocks(task_id) {
-    $.ajax(`${time_block_path}?task_id=${task_id}`, {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: "",
-      success: (resp) => {
-        // no op
-      },
-    });
-  }
-
   $('#direct-time-button').click((ev) => {
     currently_timing = !currently_timing;
     if (currently_timing) {
@@ -72,11 +60,18 @@ $(function () {
         success: (resp) => {
           start_date = '';
           end_date = '';
-          update_blocks(task_id);
+          window.location.reload();
         },
       });
     }
   });
+
+  $('.delete').click(() => {
+    console.log("foo")
+    window.setTimeout(() => {
+      window.location.reload()
+    }, 500);
+  })
 
   $('#time-button').click((ev) => {
     let start_year = parseInt($('#start-year').val());
@@ -135,7 +130,7 @@ $(function () {
         $('#end-hour').val("");
         $('#end-minute').val("");
         $('#end-second').val("");
-        update_blocks(task_id);
+        window.location.reload();
       },
     });
   });

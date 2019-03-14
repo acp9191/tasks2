@@ -21,13 +21,18 @@
             <li class="nav-item">
               <a class="nav-link" href="/tasks">All Tasks</a>
             </li>
+            <%= if @current_user do %>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= Routes.task_path(@conn, :user_tasks, @current_user.id) %>">My Tasks</a>
+              </li>
+            <% end %>
             <li class="nav-item">
               <a class="nav-link" href="/users">Users</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/mentorships">Mentorships</a>
             </li>
-             <%= if @current_user && @current_user.is_manager do %>
+            <%= if @current_user && @current_user.is_manager do %>
               <li class="nav-item">
                 <a class="nav-link" href="<%= Routes.task_path(@conn, :report, @current_user.id) %>">Task Report</a>
               </li>

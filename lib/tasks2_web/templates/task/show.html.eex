@@ -45,7 +45,7 @@
                 <%= link "Delete", to: Routes.time_block_path(@conn, :delete, time_block), 
                     method: :delete, 
                     data: [confirm: "Are you sure?"],
-                    class: "btn btn-danger" %>
+                    class: "btn btn-danger delete" %>
               <% end %>
             </td>
           </tr>
@@ -57,7 +57,6 @@
       None
     <% end %>
     <%= if (@current_user && @current_user.email == @task.user_id) do %>
-      <div>Refresh to see changes</div>
       <div id="add-time-form">
         <table class="table table-striped">
           <thead>

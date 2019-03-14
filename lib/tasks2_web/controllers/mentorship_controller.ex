@@ -17,16 +17,11 @@ defmodule Tasks2Web.MentorshipController do
       %Mentorship{mentorship | manager: Users.get_user!(mentorship.manager_id).email}
     end)
 
-    
-
-    IO.inspect(mentorships)
-
     render(conn, "index.html", mentorships: mentorships)
   end
 
   def new(conn, _params) do
     changeset = Mentorships.change_mentorship(%Mentorship{})
-    IO.inspect(changeset)
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -61,22 +56,22 @@ defmodule Tasks2Web.MentorshipController do
           manager_user = Users.get_user(changeset.changes.manager_id)
           changes = changeset.changes
           changes = %{changes | manager_id: manager_user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :manager_id, manager_email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
 
         changeset = if Map.has_key?(changeset.changes, :underling_id) do
-          manager_user = Users.get_user(changeset.changes.underling_id)
+          underling_user = Users.get_user(changeset.changes.underling_id)
           changes = changeset.changes
           changes = %{changes | underling_id: underling_user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :underling_id, underling_email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
 
         render(conn, "new.html", changeset: changeset)
@@ -89,7 +84,6 @@ defmodule Tasks2Web.MentorshipController do
     mentorship = %Mentorship{mentorship | underling: Users.get_user!(mentorship.underling_id).email}
     mentorship = %Mentorship{mentorship | manager: Users.get_user!(mentorship.manager_id).email}
 
-    IO.inspect(mentorship)
     render(conn, "show.html", mentorship: mentorship)
   end
 
@@ -104,7 +98,6 @@ defmodule Tasks2Web.MentorshipController do
   def update(conn, %{"id" => id, "mentorship" => mentorship_params}) do
     mentorship = Mentorships.get_mentorship!(id)
 
-    IO.inspect(mentorship_params)
     manager_email = mentorship_params["manager_id"]
     manager_user = Users.get_user_by_email(manager_email)
 
@@ -123,8 +116,6 @@ defmodule Tasks2Web.MentorshipController do
       mentorship_params
     end
 
-    IO.inspect(mentorship_params)
-
     case Mentorships.update_mentorship(mentorship, mentorship_params) do
       {:ok, mentorship} ->
         conn
@@ -138,26 +129,25 @@ defmodule Tasks2Web.MentorshipController do
           manager_user = Users.get_user(changeset.changes.manager_id)
           changes = changeset.changes
           changes = %{changes | manager_id: manager_user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :manager_id, manager_email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
 
         mentorship = %{mentorship | underling_id: underling_email}
         changeset = if Map.has_key?(changeset.changes, :underling_id) do
-          manager_user = Users.get_user(changeset.changes.underling_id)
+          underling_user = Users.get_user(changeset.changes.underling_id)
           changes = changeset.changes
           changes = %{changes | underling_id: underling_user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :underling_id, underling_email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
 
-        IO.inspect(changeset)
         render(conn, "edit.html", mentorship: mentorship, changeset: changeset)
     end
   end

@@ -17,6 +17,17 @@ defmodule Tasks2.TimeBlocks.TimeBlock do
     time_block
     |> cast(attrs, [:start, :end, :task_id])
     |> validate_required([:start, :end, :task_id])
+    |> validate_proper_duration(:start)
     
+  end
+
+  def validate_proper_duration(changeset, field, _options \\ []) do
+    validate_change(changeset, field, fn _, start ->
+      if (DateTime.diff(changeset.changes.end, start) < 0) do
+        [end: "End must come after start"]
+      else
+        []
+      end
+    end)
   end
 end

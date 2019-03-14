@@ -8,7 +8,6 @@ defmodule Tasks2Web.TimeBlockController do
 
   def index(conn, %{"task_id" => task_id}) do
     time_block = TimeBlocks.get_blocks_by_task_id(task_id)
-    IO.inspect(time_block)
     render(conn, "index.json", time_block: time_block)
   end
 
@@ -53,8 +52,6 @@ defmodule Tasks2Web.TimeBlockController do
     end
 
     time_block_params = %{"start" => start_time, "end" => end_time, "task_id" => time_block_params["task_id"]}
-
-    IO.inspect(time_block_params)
 
     with {:ok, %TimeBlock{} = time_block} <- TimeBlocks.create_time_block(time_block_params) do
       conn

@@ -26,6 +26,7 @@ defmodule Tasks2Web.Router do
 
     get "/", PageController, :index
     get "/task-report/:id", TaskController, :report
+    get "/user-tasks/:id", TaskController, :user_tasks
 
     resources "/tasks", TaskController
     resources "/users", UserController

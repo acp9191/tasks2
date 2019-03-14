@@ -16,12 +16,21 @@ defmodule Tasks2Web.TaskController do
     render(conn, "index.html", tasks: tasks)
   end
 
+  def user_tasks(conn, %{"id" => id}) do
+    tasks = Tasks.get_tasks_by_user(id)
+
+    tasks = Enum.map(tasks, fn task ->
+      user = Users.get_user(task.user_id)
+      %{task | user_id: user.email}
+    end)
+    
+    render(conn, "index.html", tasks: tasks)
+  end
+
   def report(conn, %{"id" => id}) do
 
     mentorships = Mentorships.get_mentorships(id)
     underlings = Enum.map(mentorships, fn x -> Users.get_user!(x.underling_id).email end)
-
-    IO.inspect(underlings)
 
     users = Enum.map(underlings, fn underling -> 
       Users.get_user_by_email(underling)
@@ -86,7 +95,6 @@ defmodule Tasks2Web.TaskController do
         |> redirect(to: Routes.task_path(conn, :show, task))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
         changeset = if Map.has_key?(changeset.changes, :user_id) do
           user = Users.get_user(changeset.changes.user_id)
           changes = changeset.changes
@@ -107,8 +115,6 @@ defmodule Tasks2Web.TaskController do
     time_blocks = TimeBlocks.get_blocks_by_task_id(id)
 
     task = Map.put(task, :time_blocks, time_blocks)
-
-    IO.inspect(task)
 
     render(conn, "show.html", task: task)
   end
