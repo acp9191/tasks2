@@ -56,8 +56,6 @@
     <% else %>
       None
     <% end %>
-
-    <%= display_blocks(@task) %>
     <%= if (@current_user && @current_user.email == @task.user_id) do %>
       <div>Refresh to see changes</div>
       <div id="add-time-form">

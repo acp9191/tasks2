@@ -41,7 +41,7 @@ defmodule Tasks2Web.TaskController do
     render(conn, "index.html", tasks: tasks)
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = Tasks.change_task(%Task{})
 
     users = Mentorships.get_mentorships(conn.assigns.current_user.id)
