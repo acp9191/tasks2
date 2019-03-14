@@ -26,6 +26,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * A User cannot be their own manager
   * A User must be a manager in order to have underlings
   * A User's underling cannot be his or her manager
+  * Once a user is made a manager, they cannot be demoted (made not a manager)
   * Only a manager can see the task-report page
   * The task report page shows a subset of all the tasks 
   * Only the User who is assigned to a task can add or delete time blocks

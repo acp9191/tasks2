@@ -29,7 +29,7 @@ defmodule Tasks2.Mentorships.Mentorship do
     validate_change(changeset, field, fn _, manager_id ->
       if Map.has_key?(changeset.changes, :underling_id) do
         mentorship = Mentorships.get_manager(manager_id)
-        if (mentorship.manager_id == changeset.changes.underling_id) do
+        if (mentorship && mentorship.manager_id == changeset.changes.underling_id) do
           [underling_id: "Manager cannot be underling"]
         else
           []

@@ -17,5 +17,16 @@ defmodule Tasks2.Users.User do
     user
     |> cast(attrs, [:email, :is_manager])
     |> validate_required([:email, :is_manager])
+    |> validate_no_underlings(:is_manager)
+  end
+
+  def validate_no_underlings(changeset, field, options \\ []) do
+    validate_change(changeset, field, fn _, is_manager ->
+      if (!is_manager) do
+        [is_manager: "User cannot be demoted"]
+      else
+        []
+      end
+    end)
   end
 end
