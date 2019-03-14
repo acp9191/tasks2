@@ -27,9 +27,7 @@ defmodule Tasks2Web.TaskController do
       Users.get_user_by_email(underling)
     end)
 
-    tasks = []
-
-    tasks = Enum.map(users, fn user -> 
+    tasks = Enum.map(users, fn user ->
       Users.get_tasks_by_user_id(user.id)
     end)
 
@@ -43,20 +41,43 @@ defmodule Tasks2Web.TaskController do
     render(conn, "index.html", tasks: tasks)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset = Tasks.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+
+    users = Mentorships.get_mentorships(conn.assigns.current_user.id)
+
+    users = Enum.map(users, fn user -> 
+      Users.get_user(user.underling_id).email
+    end)
+
+    render(conn, "new.html", changeset: changeset, users: users)
   end
 
   def create(conn, %{"task" => task_params}) do
-    email = task_params["user_id"]
-    user = Users.get_user_by_email(email)
+
+    email = if (task_params["user_id"] != nil) do
+      task_params["user_id"]
+    else 
+      nil
+    end
+
+    user = if (email != nil) do
+      Users.get_user_by_email(email)
+    else
+      nil
+    end
 
     task_params = if (user != nil) do
       Map.put(task_params, "user_id", user.id)
     else
       task_params
-    end
+    end    
+
+    users = Mentorships.get_mentorships(conn.assigns.current_user.id)
+
+    users = Enum.map(users, fn user -> 
+      Users.get_user(user.underling_id).email
+    end)
 
     case Tasks.create_task(task_params) do
       {:ok, task} ->
@@ -65,13 +86,16 @@ defmodule Tasks2Web.TaskController do
         |> redirect(to: Routes.task_path(conn, :show, task))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
         changeset = if Map.has_key?(changeset.changes, :user_id) do
           user = Users.get_user(changeset.changes.user_id)
           changes = changeset.changes
           changes = %{changes | user_id: user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
+        else 
+          changeset
         end
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, users: users)
     end
   end
 
@@ -121,11 +145,11 @@ defmodule Tasks2Web.TaskController do
           user = Users.get_user(changeset.changes.user_id)
           changes = changeset.changes
           changes = %{changes | user_id: user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :user_id, email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
         render(conn, "edit.html", task: task, changeset: changeset)
     end

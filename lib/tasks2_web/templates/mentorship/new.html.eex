@@ -1,5 +1,6 @@
 <h1>New Mentorship</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.mentorship_path(@conn, :create)) %>
+<%= Map.put(assigns, :current_user, @current_user.id) %>
 
 <span><%= link "Back", to: Routes.mentorship_path(@conn, :index) %></span>

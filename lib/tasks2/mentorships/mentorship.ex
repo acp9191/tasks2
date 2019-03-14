@@ -25,7 +25,7 @@ defmodule Tasks2.Mentorships.Mentorship do
     |> validate_underling(:underling_id)
   end
 
-  def validate_noncyclical_mentorship(changeset, field, options \\ []) do
+  def validate_noncyclical_mentorship(changeset, field, _options \\ []) do
     validate_change(changeset, field, fn _, manager_id ->
       if Map.has_key?(changeset.changes, :underling_id) do
         mentorship = Mentorships.get_manager(manager_id)
@@ -40,7 +40,7 @@ defmodule Tasks2.Mentorships.Mentorship do
     end)
   end
 
-  def validate_different_ids(changeset, field, options \\ []) do
+  def validate_different_ids(changeset, field, _options \\ []) do
     validate_change(changeset, field, fn _, manager_id ->
       if Map.has_key?(changeset.changes, :underling_id) do
         if (manager_id == changeset.changes.underling_id) do
@@ -54,7 +54,7 @@ defmodule Tasks2.Mentorships.Mentorship do
     end)
   end
 
-  def validate_manager(changeset, field, options \\ []) do
+  def validate_manager(changeset, field, _options \\ []) do
     validate_change(changeset, field, fn _, manager_id ->
       user = Users.get_user!(manager_id)
       if (!user.is_manager) do
@@ -65,7 +65,7 @@ defmodule Tasks2.Mentorships.Mentorship do
     end)
   end
 
-  def validate_underling(changeset, field, options \\ []) do
+  def validate_underling(changeset, field, _options \\ []) do
     validate_change(changeset, field, fn _, underling_id ->
       mentorship = Mentorships.get_manager(underling_id)
       if (mentorship != nil) do
@@ -75,5 +75,4 @@ defmodule Tasks2.Mentorships.Mentorship do
       end
     end)
   end
-
 end
