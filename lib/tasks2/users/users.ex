@@ -7,6 +7,7 @@ defmodule Tasks2.Users do
   alias Tasks2.Repo
 
   alias Tasks2.Users.User
+  alias Tasks2.Tasks.Task
 
   @doc """
   Returns the list of users.
@@ -42,6 +43,12 @@ defmodule Tasks2.Users do
   
   def get_user_by_email(email) do
     Repo.get_by(User, email: email)
+  end
+
+  def get_tasks_by_user_id(id) do
+    query = from t in Task,
+            where: t.user_id == ^id
+    Repo.all(query)
   end
 
   @doc """

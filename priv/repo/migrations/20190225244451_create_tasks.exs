@@ -5,7 +5,6 @@ defmodule Tasks2.Repo.Migrations.CreateTasks do
     create table(:tasks) do
       add :title, :string
       add :description, :string
-      add :length, :integer
       add :is_completed, :boolean, default: false, null: false
       add :user_id, references(:users, on_delete: :delete_all), null: false
 

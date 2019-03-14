@@ -14,15 +14,29 @@ defmodule Tasks2Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :ajax do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug Tasks2Web.Plugs.FetchSession
+  end
+
   scope "/", Tasks2Web do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/task-report/:id", TaskController, :report
+    get "/user-tasks/:id", TaskController, :user_tasks
 
     resources "/tasks", TaskController
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
     resources "/mentorships", MentorshipController
+  end
+
+  scope "/ajax", Tasks2Web do
+    pipe_through :ajax
+    resources "/time_block", TimeBlockController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

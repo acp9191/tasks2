@@ -18,17 +18,110 @@
   </li>
 
   <li>
-    <strong>Length:</strong>
-    <%= @task.length %>
-    <span> minutes</span>
-  </li>
-
-  <li>
     <strong>Is completed:</strong>
     <%= @task.is_completed %>
   </li>
 
+  
+  <li>
+    <strong>Time Blocks:</strong>
+    <%= if (length(@task.time_blocks) > 0) do %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Start</th>
+            <th>End</th>
+
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <%= for time_block <- @task.time_blocks do %>
+        <tr>
+            <td><%= time_block.start %></td>
+            <td><%= time_block.end %></td>
+            <td>
+              <%= if (@current_user && @current_user.email == @task.user_id) do %>
+                <%= link "Delete", to: Routes.time_block_path(@conn, :delete, time_block), 
+                    method: :delete, 
+                    data: [confirm: "Are you sure?"],
+                    class: "btn btn-danger delete" %>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+     
+    <% else %>
+      None
+    <% end %>
+    <%= if (@current_user && @current_user.email == @task.user_id) do %>
+      <div id="add-time-form">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Start</th>
+              <th>End</th>
+
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Year</td>
+              <td><input id="start-year" placeholder="YYYY"></td>
+              <td><input id="end-year"   placeholder="YYYY"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Month</td>
+              <td><input id="start-month" placeholder="MM"></td>
+              <td><input id="end-month"   placeholder="MM"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Day</td>
+              <td><input id="start-day" placeholder="DD"></td>
+              <td><input id="end-day"   placeholder="DD"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Hour</td>
+              <td><input id="start-hour" placeholder="HH"></td>
+              <td><input id="end-hour"   placeholder="HH"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Minute</td>
+              <td><input id="start-minute" placeholder="MM"></td>
+              <td><input id="end-minute"   placeholder="MM"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Second</td>
+              <td><input id="start-second" placeholder="SS"></td>
+              <td><input id="end-second"   placeholder="SS"></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <button id="time-button"
+                data-task-id="<%= @task.id %>"
+                class="btn btn-primary">Add Time Block</button>
+      </div>
+      <br>
+      <button id="direct-time-button"
+                  data-task-id="<%= @task.id %>"
+                  class="btn btn-success">Start Time Block</button>
+    <% end %>
+  </li>
 </ul>
+
+<script>
+ window.time_block_path = "<%= Routes.time_block_path(@conn, :create) %>";
+</script>
 
 <span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>
 <span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>

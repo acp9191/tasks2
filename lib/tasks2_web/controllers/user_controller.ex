@@ -3,6 +3,7 @@ defmodule Tasks2Web.UserController do
 
   alias Tasks2.Users
   alias Tasks2.Users.User
+  alias Tasks2.Mentorships
 
   def index(conn, _params) do
     users = Users.list_users()
@@ -29,6 +30,20 @@ defmodule Tasks2Web.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
+
+    mentorships = Mentorships.get_mentorships(id)
+    underlings = Enum.map(mentorships, fn x -> Users.get_user!(x.underling_id).email end)
+    user = Map.put(user, :underlings, underlings)
+
+    manager = Mentorships.get_manager(id)
+    manager_email = if (manager) do
+      Users.get_user!(manager.manager_id).email
+    else
+      nil
+    end
+
+    user = Map.put(user, :manager, manager_email)
+
     render(conn, "show.html", user: user)
   end
 
@@ -40,7 +55,6 @@ defmodule Tasks2Web.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
-
     case Users.update_user(user, user_params) do
       {:ok, user} ->
         conn

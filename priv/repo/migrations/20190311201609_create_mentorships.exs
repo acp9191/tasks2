@@ -9,6 +9,6 @@ defmodule Tasks2.Repo.Migrations.CreateMentorships do
       timestamps()
     end
 
-    create index(:mentorships, [:manager_id, :underling_id])
+    create unique_index(:mentorships, [:manager_id, :underling_id])
   end
 end

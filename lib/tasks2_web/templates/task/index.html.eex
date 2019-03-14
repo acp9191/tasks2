@@ -6,7 +6,6 @@
       <th>Title</th>
       <th>Description</th>
       <th>Assigned to</th>
-      <th>Length (min)</th>
       <th>Is completed</th>
 
       <th></th>
@@ -18,7 +17,6 @@
           <td><%= task.title %></td>
           <td><%= task.description %></td>
           <td><%= task.user_id %></td>
-          <td><%= task.length %></td>
           <td><%= task.is_completed %></td>
 
           <td>
@@ -35,4 +33,8 @@
   </tbody>
 </table>
 
-<span><%= link "New Task", to: Routes.task_path(@conn, :new), class: 'btn btn-primary' %></span>
+<span>
+  <%= if @current_user && @current_user.is_manager do %>
+    <%= link "New Task", to: Routes.task_path(@conn, :new), class: 'btn btn-primary' %>
+  <% end %>
+</span>

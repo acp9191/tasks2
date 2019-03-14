@@ -4,6 +4,8 @@ defmodule Tasks2Web.TaskController do
   alias Tasks2.Tasks
   alias Tasks2.Tasks.Task
   alias Tasks2.Users
+  alias Tasks2.Mentorships
+  alias Tasks2.TimeBlocks
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -14,20 +16,77 @@ defmodule Tasks2Web.TaskController do
     render(conn, "index.html", tasks: tasks)
   end
 
+  def user_tasks(conn, %{"id" => id}) do
+    tasks = Tasks.get_tasks_by_user(id)
+
+    tasks = Enum.map(tasks, fn task ->
+      user = Users.get_user(task.user_id)
+      %{task | user_id: user.email}
+    end)
+    
+    render(conn, "index.html", tasks: tasks)
+  end
+
+  def report(conn, %{"id" => id}) do
+
+    mentorships = Mentorships.get_mentorships(id)
+    underlings = Enum.map(mentorships, fn x -> Users.get_user!(x.underling_id).email end)
+
+    users = Enum.map(underlings, fn underling -> 
+      Users.get_user_by_email(underling)
+    end)
+
+    tasks = Enum.map(users, fn user ->
+      Users.get_tasks_by_user_id(user.id)
+    end)
+
+    tasks = List.flatten(tasks)
+
+    tasks = Enum.map(tasks, fn task ->
+      user = Users.get_user(task.user_id)
+      %{task | user_id: user.email}
+    end)
+
+    render(conn, "index.html", tasks: tasks)
+  end
+
   def new(conn, _params) do
     changeset = Tasks.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+
+    users = Mentorships.get_mentorships(conn.assigns.current_user.id)
+
+    users = Enum.map(users, fn user -> 
+      Users.get_user(user.underling_id).email
+    end)
+
+    render(conn, "new.html", changeset: changeset, users: users)
   end
 
   def create(conn, %{"task" => task_params}) do
-    email = task_params["user_id"]
-    user = Users.get_user_by_email(email)
+
+    email = if (task_params["user_id"] != nil) do
+      task_params["user_id"]
+    else 
+      nil
+    end
+
+    user = if (email != nil) do
+      Users.get_user_by_email(email)
+    else
+      nil
+    end
 
     task_params = if (user != nil) do
       Map.put(task_params, "user_id", user.id)
     else
       task_params
-    end
+    end    
+
+    users = Mentorships.get_mentorships(conn.assigns.current_user.id)
+
+    users = Enum.map(users, fn user -> 
+      Users.get_user(user.underling_id).email
+    end)
 
     case Tasks.create_task(task_params) do
       {:ok, task} ->
@@ -40,9 +99,11 @@ defmodule Tasks2Web.TaskController do
           user = Users.get_user(changeset.changes.user_id)
           changes = changeset.changes
           changes = %{changes | user_id: user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
+        else 
+          changeset
         end
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, users: users)
     end
   end
 
@@ -50,6 +111,11 @@ defmodule Tasks2Web.TaskController do
     task = Tasks.get_task!(id)
     user = Users.get_user(task.user_id)
     task = %{task | user_id: user.email}
+
+    time_blocks = TimeBlocks.get_blocks_by_task_id(id)
+
+    task = Map.put(task, :time_blocks, time_blocks)
+
     render(conn, "show.html", task: task)
   end
 
@@ -85,11 +151,11 @@ defmodule Tasks2Web.TaskController do
           user = Users.get_user(changeset.changes.user_id)
           changes = changeset.changes
           changes = %{changes | user_id: user.email}
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         else
           changes = changeset.changes
           changes = Map.put(changes, :user_id, email)
-          changeset = %{changeset | changes: changes}
+          %{changeset | changes: changes}
         end
         render(conn, "edit.html", task: task, changeset: changeset)
     end

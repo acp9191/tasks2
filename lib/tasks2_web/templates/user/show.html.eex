@@ -8,9 +8,30 @@
   </li>
 
   <li>
-    <strong>Manager:</strong>
+    <strong>Is Manager:</strong>
     <%= @user.is_manager %>
   </li>
+
+  <li>
+    <strong>Underlings:</strong>
+    <%= if @user.underlings != [] do %>
+      <%= for u <- @user.underlings do %>
+        <span><%= u %> </span>
+      <% end %>
+    <% else %>
+      <span>None</span>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Manager:</strong>
+    <%= if @user.manager != nil do %>
+      <%= @user.manager %>  
+    <% else %>
+      <span>None</span>
+    <% end %>
+  </li>
+
 
 </ul>
 

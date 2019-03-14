@@ -1,20 +1,30 @@
 <h1>Listing Mentorships</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
+      <th>Manager</th>
+      <th>Underling</th>
 
       <th></th>
     </tr>
+
   </thead>
   <tbody>
 <%= for mentorship <- @mentorships do %>
     <tr>
+      <td><%= mentorship.manager %></td>
+      <td><%= mentorship.underling %></td>
 
       <td>
-        <%= link "Show", to: Routes.mentorship_path(@conn, :show, mentorship) %>
-        <%= link "Edit", to: Routes.mentorship_path(@conn, :edit, mentorship) %>
-        <%= link "Delete", to: Routes.mentorship_path(@conn, :delete, mentorship), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link "Show", to: Routes.mentorship_path(@conn, :show, mentorship),
+            class: "btn btn-secondary" %>
+        <%= link "Edit", to: Routes.mentorship_path(@conn, :edit, mentorship),
+            class: "btn btn-info" %>
+        <%= link "Delete", to: Routes.mentorship_path(@conn, :delete, mentorship), 
+            method: :delete, 
+            data: [confirm: "Are you sure?"],
+            class: "btn btn-danger" %>
       </td>
     </tr>
 <% end %>
